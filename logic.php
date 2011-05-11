@@ -47,14 +47,14 @@ BRANCH='{$params['to_git_branch']}'
     if (!empty($params['to_clear_dir'])){
         $script .= stringToShArray('CLEAR_PATHS',$params['to_clear_dir'],';'); 
     }
-
-    $file =  file_get_contents("deploy.sh.tpl");
-    $file = preg_replace("#\{\{PARAMS\}\}#", $script, $file);
+    if ($params['env_save_to']) {
+        $file =  file_get_contents("deploy.sh.tpl");
+        $file = preg_replace("#\{\{PARAMS\}\}#", $script, $file);
     
-    $shell_file = fopen('deploy.sh', "wt+");  
-    fwrite( $shell_file , $file); 
-    fclose($shell_file);
-
+        $shell_file = fopen($params['env_save_to'].'deploy.sh', "wt+");  
+        fwrite( $shell_file , $file); 
+        fclose($shell_file);
+    }
     $settings_file = fopen('settings.php', "wt+");  
     fwrite( $settings_file , "<?php ");
     foreach($params as $k=>$param) {       
