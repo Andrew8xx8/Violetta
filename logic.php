@@ -7,7 +7,7 @@ function stringToShArray($name, $string, $delim){
             $script .= $name.'=\'';
         $script .= trim($items[$i]);
         if ($i == count($items) - 1)
-            $script .= "\'\n";
+            $script .= "'\n";
         else
             $script .= ' ';
     } 
